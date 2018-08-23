@@ -45,14 +45,11 @@ export class MatchesDashboardComponent implements OnInit {
     public datepipe: DatePipe,
     private liveMatchesApiService: MatchesApiService,
     private jsCustomeFun: JsCustomeFunScriptService,
-
-
   ) {
     this.localtimezone = this.jsCustomeFun.LocalTimeZone();
     this.firstDay_Month = this.jsCustomeFun.firstDay_Month();
     this.lastDay_Month = this.jsCustomeFun.lastDay_Month();
     this.array_length = 1;
-
   }
 
   ngOnInit() {

@@ -19,10 +19,14 @@
                                     <!--end Time & Status -->
 
                                     <!-- Score & Group of Team -->
-                                    <div class="col-sm-3 col-xs-4 flag-lwidth">
+                                    <div class="col-sm-3 col-xs-3 flag-lwidth">
                                         <p [class.text-bold]="item_details.ltScore_highest">{{item_details.localteam_name}}</p>
                                     </div>
-                                    <div class="col-sm-2 col-xs-2 match-team-group">
+                                    <div class="col-sm-1 col-xs-1">
+                                        <img class="flage-l" [src]="item_details.localteam_image" onError="this.src='assets/img/avt_flag.png'" />
+                                    </div>
+                                    <div class="col-sm-1 col-xs-1 match-team-group">
+
                                         <div *ngIf="item_details.score_status_flage; else noscore1">
                                             <div class="matchscore">
                                                 <span class="match_time border-box-left" [class.text-bold]="item_details.ltScore_highest">{{item_details.localteam_score}}</span>
@@ -30,15 +34,19 @@
                                             </div>
                                         </div>
                                         <ng-template #noscore1>
-                                            <h1 class="upertxt">-</h1>
+                                            <h1 class="upert hr-dash">-</h1>
                                         </ng-template>
+
                                     </div>
 
                                     <!--end Score & Group of Team -->
-
+                                    <div class="col-sm-1 col-xs-1">
+                                        <img class="flage-v" [src]="item_details.visitorteam_image" onError="this.src='assets/img/avt_flag.png'" />
+                                    </div>
                                     <div class="col-sm-3 col-xs-3 flag-rwidth">
                                         <p [class.text-bold]="item_details.vtScore_highest">{{item_details.visitorteam_name}}</p>
                                     </div>
+
 
                                     <!--end Score & Group of Team -->
                                     <div class="col-sm-1 col-xs-1 circle-team">
