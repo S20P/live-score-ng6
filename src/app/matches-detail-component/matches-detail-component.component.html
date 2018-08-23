@@ -1,0 +1,851 @@
+<div id="loading" *ngIf='showloader'>
+    <div class="lds-ring">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div class="container">
+    <div class="match-detail-section">
+        <div *ngFor="let match of match_detailcollection;let i=index">
+            <!-- team-detail-header -->
+            <div class="team-detail-header">
+                <div class="row">
+                    <div class="col-md-4 col-sm-4">
+                        <div class="local-team c-pointer" (click)="teamdetails(match.localteam_id)">
+                            <div class="local-team-flag">
+                                <img [src]="match.localteam_image" onError="this.src='assets/img/avt_flag.png'" />
+                            </div>
+                            <!-- <p>Barcelona</p> -->
+                            <h4 class="teamname-responsive">{{match.localteam_name}}</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div class="team-status">
+                            <p>{{match.time| date: 'dd MMM yyyy'}}</p>
+                            <div class="border"></div>
+                            <h2 class="teamscore" [class.theme-color]="match.live_status" *ngIf="match.score_status_flage">{{match.localteam_score}} - {{match.visitorteam_score}}</h2>
+                            <h2 class="status-txt" [class.theme-color]="match.live_status">{{match.status}}</h2>
+                        </div>
+                        <div class="venue_name">
+                            <p>{{match.venue}}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div class="visited-team c-pointer" (click)="teamdetails(match.visitorteam_id)">
+                            <div class="visited-team-flag">
+                                <img [src]="match.visitorteam_image" onError="this.src='assets/img/avt_flag.png'" />
+                            </div>
+                            <!-- <p>Real Sociedad</p> -->
+                            <h4 class="teamname-responsive">{{match.visitorteam_name}}</h4>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <!-- team-detail-header end -->
+
+        <!-- match-name -->
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel with-nav-tabs panel-default">
+                    <!-- tabs menu  -->
+                    <div class="panel-heading">
+                        <ul class="nav nav-tabs">
+                            <li class="back_btn" (click)="AllMatchList()">
+                                <a href="" data-toggle="tab"> <i class="fa fa-chevron-left" aria-hidden="true"></i>Back</a>
+                            </li>
+                            <li class="active">
+                                <a href="#tab1default" data-toggle="tab">Details</a>
+                            </li>
+                            <li>
+                                <a href="#tab2default" data-toggle="tab">Lineups</a>
+                            </li>
+                            <li>
+                                <a href="#tab3default" data-toggle="tab">Commentry</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- end tabs menu  -->
+
+                    <div class="row">
+                        <div *ngFor="let match of match_detailcollection;let i=index">
+                            <div class="col-md-12">
+                                <div class="leauge_link_title">
+                                    <button class="btn-pagelink" (click)="CompetitionDetails(match.competitions.id)"><h4>{{match.competitions.name}}<span><i class="fa fa-chevron-right" aria-hidden="true"></i></span></h4></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-sm-12 col-md-8 col-lg-8 remove_right_padding">
+                            <!-- tabs body  -->
+                            <div *ngFor="let match of match_detailcollection;let i=index">
+                                <div class="">
+                                    <div class="tab-content">
+                                        <!--******** DETAILS ************-->
+                                        <div class="tab-pane fade in active" id="tab1default">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p class="slogen">{{match.localteam_name}} v {{match.visitorteam_name}} Key events and Stats, {{match.time| date: 'dd MMM yyyy'}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 remove_right_padding">
+                                                    <!-- key Events -->
+                                                    <div class="event">
+                                                        <h4>
+                                                            <b>Key Events</b>
+                                                        </h4>
+
+
+                                                        <div *ngFor="let events of events_collection">
+                                                            <!-- localteam -->
+
+                                                            <div class="keyevnt-detail">
+                                                                <div class="row">
+                                                                    <div class="col-md-12 right-keyevnt">
+                                                                        <div id="timeline">
+
+                                                                            <div class="row timeline-movement">
+
+                                                                                <div class="timeline-badge">
+
+                                                                                </div>
+
+
+                                                                                <div class="col-sm-6 col-xs-6 timeline-item">
+                                                                                    <div class="row">
+                                                                                        <div class="col-sm-11">
+                                                                                            <div class="timeline-panel credits">
+                                                                                                <div *ngIf="events.team=='localteam'">
+                                                                                                    <ul class="inline right_team">
+                                                                                                        <li>
+                                                                                                            <div class="event-text-main">
+                                                                                                                <p class="player_name">{{events.player}}</p>
+                                                                                                            </div>
+                                                                                                            <div class="event-text-additional">
+                                                                                                                <div *ngIf="events.assist_id !==''">
+                                                                                                                    <p class="small">{{events.assist}} </p>
+                                                                                                                </div>
+                                                                                                                <div *ngIf="events.assist_id==''">
+                                                                                                                    <div *ngIf="events.ic_event_yellowred">
+                                                                                                                        <p class="small">{{events.type}}</p>
+                                                                                                                    </div>
+                                                                                                                    <div *ngIf="events.ic_event_redcard">
+                                                                                                                        <p class="small">{{events.type}}</p>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </li>
+                                                                                                        <li>
+                                                                                                            <div class="events_time">
+                                                                                                                <p>{{events.minute}}'</p>
+                                                                                                            </div>
+                                                                                                        </li>
+                                                                                                        <li>
+                                                                                                            <div class="ic_img_middle">
+                                                                                                                <div *ngIf="events.ic_event_yellow_card">
+                                                                                                                    <img src="assets/img/ic_event_yellow_card.png">
+                                                                                                                </div>
+                                                                                                                <div *ngIf="events.ic_event_substitution">
+                                                                                                                    <img src="assets/img/ic_event_substitution.png">
+                                                                                                                </div>
+                                                                                                                <div class="goal_img">
+                                                                                                                    <div class="event-time" *ngIf="events.ic_event_goal || events.ic_event_penalty || events.ic_event_own_goal">
+                                                                                                                        <p class="small">{{events.result}}</p>
+                                                                                                                    </div>
+                                                                                                                    <div *ngIf="events.ic_event_goal">
+                                                                                                                        <img src="assets/img/ic_event_goal.png">
+                                                                                                                    </div>
+                                                                                                                    <div *ngIf="events.ic_event_penalty">
+                                                                                                                        <img src="assets/img/ic_event_penalty.png">
+                                                                                                                    </div>
+                                                                                                                    <div *ngIf="events.ic_event_own_goal">
+                                                                                                                        <img src="assets/img/ic_event_own_goal.png">
+                                                                                                                    </div>
+                                                                                                                </div>
+
+                                                                                                                <div *ngIf="events.ic_event_missed_penalty">
+                                                                                                                    <img src="assets/img/ic_event_missed_penalty.png">
+                                                                                                                </div>
+                                                                                                                <div *ngIf="events.ic_event_redcard">
+                                                                                                                    <img src="assets/img/ic_event_redcard.png">
+                                                                                                                </div>
+                                                                                                                <div *ngIf="events.ic_event_yellowred">
+                                                                                                                    <img src="assets/img/ic_event_yellowred.png">
+                                                                                                                </div>
+
+                                                                                                            </div>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-sm-6 col-xs-6 timeline-item">
+                                                                                    <div class="row">
+                                                                                        <div class="col-sm-offset-1 col-sm-11">
+                                                                                            <div class="timeline-panel debits">
+                                                                                                <div *ngIf="events.team=='visitorteam'">
+                                                                                                    <ul class="inline left_team">
+                                                                                                        <li>
+                                                                                                            <div class="ic_img_middle">
+                                                                                                                <div *ngIf="events.ic_event_yellow_card">
+                                                                                                                    <img src="assets/img/ic_event_yellow_card.png">
+                                                                                                                </div>
+                                                                                                                <div *ngIf="events.ic_event_substitution">
+                                                                                                                    <img src="assets/img/ic_event_substitution.png">
+                                                                                                                </div>
+                                                                                                                <div class="goal_img" *ngIf="events.ic_event_goal || events.ic_event_penalty || events.ic_event_own_goal">
+                                                                                                                    <div class="event-time">
+                                                                                                                        <p class="small">{{events.result}}</p>
+                                                                                                                    </div>
+                                                                                                                    <div *ngIf="events.ic_event_goal">
+                                                                                                                        <img src="assets/img/ic_event_goal.png">
+                                                                                                                    </div>
+                                                                                                                    <div *ngIf="events.ic_event_penalty">
+                                                                                                                        <img src="assets/img/ic_event_penalty.png">
+                                                                                                                    </div>
+                                                                                                                    <div *ngIf="events.ic_event_own_goal">
+                                                                                                                        <img src="assets/img/ic_event_own_goal.png">
+                                                                                                                    </div>
+                                                                                                                </div>
+
+                                                                                                                <div *ngIf="events.ic_event_missed_penalty">
+                                                                                                                    <img src="assets/img/ic_event_missed_penalty.png">
+                                                                                                                </div>
+                                                                                                                <div *ngIf="events.ic_event_redcard">
+                                                                                                                    <img src="assets/img/ic_event_redcard.png">
+                                                                                                                </div>
+                                                                                                                <div *ngIf="events.ic_event_yellowred">
+                                                                                                                    <img src="assets/img/ic_event_yellowred.png">
+                                                                                                                </div>
+
+                                                                                                            </div>
+                                                                                                        </li>
+                                                                                                        <li>
+                                                                                                            <div class="events_time">
+                                                                                                                <p>{{events.minute}}'</p>
+                                                                                                            </div>
+                                                                                                        </li>
+                                                                                                        <li>
+                                                                                                            <div class="event-text-main">
+                                                                                                                <p class="player_name">{{events.player}}</p>
+                                                                                                            </div>
+                                                                                                            <div class="event-text-additional">
+                                                                                                                <div *ngIf="events.assist_id !==''">
+                                                                                                                    <p class="small">{{events.assist}} </p>
+                                                                                                                </div>
+                                                                                                                <div *ngIf="events.assist_id==''">
+                                                                                                                    <div *ngIf="events.ic_event_yellowred">
+                                                                                                                        <p class="small">{{events.type}}</p>
+                                                                                                                    </div>
+                                                                                                                    <div *ngIf="events.ic_event_redcard">
+                                                                                                                        <p class="small">{{events.type}}</p>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </li>
+
+                                                                                                    </ul>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <!--due -->
+
+                                                                        </div>
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+
+                                                        <div *ngIf="events_collection.length> 0">
+                                                            <div class="keyevnt-detail kick_off">
+                                                                <div class="row">
+                                                                    <div class="col-md-12 left-keyevnt">
+                                                                        <div class="col-xs-4">
+                                                                        </div>
+                                                                        <div class="col-xs-4 ic_img_middle kick_img">
+                                                                            <img src="assets/img/Kick_Off.png">
+                                                                            <p>Kick Off</p>
+                                                                        </div>
+                                                                        <div class="col-xs-4">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card" *ngIf="events_collection_length <= 0">
+                                                            <p>No Events </p>
+                                                        </div>
+                                                    </div>
+                                                    <!-- key Events end -->
+                                                </div>
+                                                <div class="col-md-6 remove_left_padding">
+                                                    <!-- status -->
+                                                    <div class="status">
+                                                        <h4>
+                                                            <b>STATS</b>
+                                                        </h4>
+                                                        <!-- Total Attempts -->
+                                                        <div class="stats_list" *ngFor="let stats of match_stats_collection">
+                                                            <!-- POSSESSION -->
+                                                            <div class="row">
+                                                                <p>Possession</p>
+                                                                <div class="col-xs-2">
+                                                                    <p>{{stats.lt_possesiontime}}</p>
+                                                                </div>
+                                                                <div class="col-xs-8">
+                                                                    <div class="row">
+                                                                        <div class="col-xs-6 no-padding">
+                                                                            <div class="status-progress">
+                                                                                <div class="progress-bar lt-progress" role="progressbar" style="width: 42%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xs-6 no-padding">
+                                                                            <div class="status-progress">
+                                                                                <div class="progress-bar vt-progress" role="progressbar" style="width: 58%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-2">
+                                                                    <p>{{stats.vt_possesiontime}}</p>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="row">
+                                                                <p>Total Attempts</p>
+                                                                <div class="col-xs-2">
+                                                                    <p>{{stats.lt_shots_total}}</p>
+                                                                </div>
+                                                                <div class="col-xs-8">
+                                                                    <div class="row">
+                                                                        <div class="col-xs-6 no-padding">
+                                                                            <div class="status-progress">
+                                                                                <div class="progress-bar lt-progress" role="progressbar" [style.width]="stats.lt_shots_total + '%'" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xs-6 no-padding">
+                                                                            <div class="status-progress">
+                                                                                <div class="progress-bar vt-progress" role="progressbar" [style.width]="stats.vt_shots_total + '%'" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-2">
+                                                                    <p>{{stats.vt_shots_total}}</p>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Corners -->
+                                                            <div class="row">
+                                                                <p>Corners</p>
+                                                                <div class="col-xs-2">
+                                                                    <p>{{stats.lt_corners}}</p>
+                                                                </div>
+                                                                <div class="col-xs-8">
+                                                                    <div class="row">
+                                                                        <div class="col-xs-6 no-padding">
+                                                                            <div class="status-progress">
+                                                                                <div class="progress-bar lt-progress" role="progressbar" [style.width]="stats.lt_corners + '%'" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xs-6 no-padding">
+                                                                            <div class="status-progress">
+                                                                                <div class="progress-bar vt-progress" role="progressbar" [style.width]="stats.vt_corners + '%'" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-2">
+                                                                    <p>{{stats.vt_corners}}</p>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Shot on Target -->
+                                                            <div class="row">
+                                                                <p>Shot on Target</p>
+                                                                <div class="col-xs-2">
+                                                                    <p>{{stats.lt_shots_ongoal}}</p>
+                                                                </div>
+                                                                <div class="col-xs-8">
+                                                                    <div class="row">
+                                                                        <div class="col-xs-6 no-padding">
+                                                                            <div class="status-progress">
+                                                                                <div class="progress-bar lt-progress" role="progressbar" [style.width]="stats.lt_shots_ongoal + '%'" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xs-6 no-padding">
+                                                                            <div class="status-progress">
+                                                                                <div class="progress-bar vt-progress" role="progressbar" [style.width]="stats.vt_shots_ongoal + '%'" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-2">
+                                                                    <p>{{stats.vt_shots_ongoal}}</p>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <!-- Shot off Target -->
+                                                            <div class="row">
+                                                                <p>Shot off Target</p>
+                                                                <div class="col-xs-2">
+                                                                    <p>{{stats.lt_offsides}}</p>
+                                                                </div>
+                                                                <div class="col-xs-8">
+                                                                    <div class="row">
+                                                                        <div class="col-xs-6 no-padding">
+                                                                            <div class="status-progress">
+                                                                                <div class="progress-bar lt-progress" role="progressbar" [style.width]="stats.lt_offsides + '%'" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xs-6 no-padding">
+                                                                            <div class="status-progress">
+                                                                                <div class="progress-bar vt-progress" role="progressbar" [style.width]="stats.vt_offsides + '%'" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-2">
+                                                                    <p>{{stats.vt_offsides}}</p>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <!-- Offsides -->
+                                                            <div class="row">
+                                                                <p>Offsides</p>
+                                                                <div class="col-xs-2">
+                                                                    <p>{{stats.lt_offsides}}</p>
+                                                                </div>
+                                                                <div class="col-xs-8">
+                                                                    <div class="row">
+                                                                        <div class="col-xs-6 no-padding">
+                                                                            <div class="status-progress">
+                                                                                <div class="progress-bar lt-progress" role="progressbar" [style.width]="stats.lt_offsides + '%'" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xs-6 no-padding">
+                                                                            <div class="status-progress">
+                                                                                <div class="progress-bar vt-progress" role="progressbar" [style.width]="stats.vt_offsides + '%'" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-2">
+                                                                    <p>{{stats.vt_offsides}}</p>
+                                                                </div>
+                                                            </div>
+
+
+
+
+                                                            <!-- Fouls -->
+                                                            <div class="row">
+                                                                <p>Fouls</p>
+                                                                <div class="col-xs-2">
+                                                                    <p>{{stats.lt_fouls}}</p>
+                                                                </div>
+                                                                <div class="col-xs-8">
+                                                                    <div class="row">
+                                                                        <div class="col-xs-6 no-padding">
+                                                                            <div class="status-progress">
+                                                                                <div class="progress-bar lt-progress" role="progressbar" [style.width]="stats.lt_fouls + '%'" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xs-6 no-padding">
+                                                                            <div class="status-progress">
+                                                                                <div class="progress-bar vt-progress" role="progressbar" [style.width]="stats.vt_fouls + '%'" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-2">
+                                                                    <p>{{stats.vt_fouls}}</p>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Saves -->
+                                                            <div class="row">
+                                                                <p>Saves</p>
+                                                                <div class="col-xs-2">
+                                                                    <p>{{stats.lt_saves}}</p>
+                                                                </div>
+                                                                <div class="col-xs-8">
+                                                                    <div class="row">
+                                                                        <div class="col-xs-6 no-padding">
+                                                                            <div class="status-progress">
+                                                                                <div class="progress-bar lt-progress" role="progressbar" [style.width]="stats.lt_saves + '%'" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xs-6 no-padding">
+                                                                            <div class="status-progress">
+                                                                                <div class="progress-bar vt-progress" role="progressbar" [style.width]="stats.vt_saves + '%'" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-2">
+                                                                    <p>{{stats.vt_saves}}</p>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Discipline-Yellow Card -->
+                                                            <div class="row">
+                                                                <p>Discipline-Yellow Cards</p>
+                                                                <div class="col-xs-2">
+                                                                    <p>{{stats.lt_yellowcards}}</p>
+                                                                </div>
+                                                                <div class="col-xs-8">
+                                                                    <div class="row">
+                                                                        <div class="col-xs-6 no-padding">
+                                                                            <div class="status-progress">
+                                                                                <div class="progress-bar lt-progress" role="progressbar" [style.width]="stats.lt_yellowcards + '%'" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xs-6 no-padding">
+                                                                            <div class="status-progress">
+                                                                                <div class="progress-bar vt-progress" role="progressbar" [style.width]="stats.vt_yellowcards + '%'" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-2">
+                                                                    <p>{{stats.vt_yellowcards}}</p>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Discipline-Red Card -->
+                                                            <div class="row">
+                                                                <p>Discipline-Red Cards</p>
+                                                                <div class="col-xs-2">
+                                                                    <p>{{stats.lt_redcards}}</p>
+                                                                </div>
+                                                                <div class="col-xs-8">
+                                                                    <div class="row">
+                                                                        <div class="col-xs-6 no-padding">
+                                                                            <div class="status-progress">
+                                                                                <div class="progress-bar lt-progress" role="progressbar" [style.width]="stats.lt_redcards + '%'" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-xs-6 no-padding">
+                                                                            <div class="status-progress">
+                                                                                <div class="progress-bar vt-progress" role="progressbar" [style.width]="stats.vt_redcards + '%'" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-2">
+                                                                    <p>{{stats.vt_redcards}}</p>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <!-- status end -->
+                                                        <div class="card" *ngIf="match_stats_collection_length <= 0">
+                                                            <p>No Status </p>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <!--******* end DETAILS ***********-->
+
+                                        <!--******* LINEUPS ***********-->
+                                        <div class="tab-pane" id="tab2default">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p class="slogen">{{match.localteam_name}} v {{match.visitorteam_name}} Lineups, {{match.time| date: 'dd MMM yyyy'}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 remove_right_padding">
+                                                    <!-- LINEUPS localteam Title -->
+
+                                                    <div class="lineup_one">
+                                                        <div class="card">
+                                                            <div class="col-md-12 lineupititle">
+                                                                <h4>
+                                                                    <img [src]="match.localteam_image" class="lineup_title_img" onError="this.src='assets/img/avt_flag.png'" />
+                                                                    <b>Line Up</b>
+                                                                </h4>
+                                                            </div>
+
+
+                                                            <div class="card-body theme-hover" *ngFor="let player of localteam_player_lineup|orderBy_ace_desc:'number_sort':ascending;let i=index">
+                                                                <div class="lineup_data" (click)="Playerdetails(player.id)">
+
+                                                                    <div class="col-xs-2 lineup_img">
+                                                                        <p><span class="first-letters-circle">{{player.name[0]}}</span> </p>
+                                                                    </div>
+                                                                    <div class="col-xs-2 lineup_number">
+                                                                        <p>{{player.number}}</p>
+                                                                    </div>
+                                                                    <div class="col-xs-8 lineup_name">
+                                                                        <p>{{player.name}}</p>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-body  theme-hover" *ngIf="localteam_player_lineup_length<= 0">
+                                                                <p>No LocalTeam Lineups </p>
+                                                            </div>
+
+
+
+
+                                                        </div>
+                                                        <div class="card">
+                                                            <div class="col-md-12 lineupititle">
+                                                                <h4>
+                                                                    <img [src]="match.localteam_image" class="lineup_title_img" onError="this.src='assets/img/avt_flag.png'" />
+                                                                    <b>Bench</b>
+                                                                </h4>
+                                                            </div>
+
+                                                            <div class="card-body  theme-hover" *ngFor="let player of localteam_player_subs|orderBy_ace_desc:'number':ascending;let i=index">
+                                                                <div class="lineup_data" (click)="Playerdetails(player.id)">
+
+                                                                    <div class="col-xs-2 lineup_img">
+                                                                        <p><span class="first-letters-circle">{{player.name[0]}}</span> </p>
+                                                                    </div>
+                                                                    <div class="col-xs-2 lineup_number">
+                                                                        <p>{{player.number}}</p>
+                                                                    </div>
+                                                                    <div class="col-xs-8 lineup_name">
+                                                                        <p>{{player.name}}</p>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-body  theme-hover" *ngIf="localteam_player_subs_length <= 0">
+                                                                <p>No LocalTeam Bench </p>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                                <div class="col-md-6 remove_left_padding">
+                                                    <!-- LINEUPS visitorteam Title -->
+
+                                                    <div class="lineup_one  lineup_margin">
+                                                        <div class="card">
+                                                            <div class="col-md-12 lineupititle">
+                                                                <h4>
+                                                                    <img [src]="match.visitorteam_image" class="lineup_title_img" onError="this.src='assets/img/avt_flag.png'" />
+                                                                    <b>Line Up</b>
+                                                                </h4>
+                                                            </div>
+
+                                                            <div class="card-body  theme-hover" *ngFor="let player of visitorteam_player_lineup|orderBy_ace_desc:'number_sort':ascending;let i=index">
+                                                                <div class="lineup_data" (click)="Playerdetails(player.id)">
+
+                                                                    <div class="col-xs-2 lineup_img">
+                                                                        <p><span class="first-letters-circle">{{player.name[0]}}</span> </p>
+                                                                    </div>
+                                                                    <div class="col-xs-2 lineup_number">
+                                                                        <p>{{player.number}}</p>
+                                                                    </div>
+                                                                    <div class="col-xs-8 lineup_name">
+                                                                        <p>{{player.name}}</p>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-body  theme-hover" *ngIf="visitorteam_player_lineup_length <= 0">
+                                                                <p>No VisitorTeam Lineups </p>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="card">
+                                                            <div class="col-md-12 lineupititle">
+                                                                <h4>
+                                                                    <img [src]="match.visitorteam_image" class="lineup_title_img" onError="this.src='assets/img/avt_flag.png'" />
+                                                                    <b>Bench</b>
+                                                                </h4>
+                                                            </div>
+
+                                                            <div class="card-body  theme-hover" *ngFor="let player of visitorteam_player_subs|orderBy_ace_desc:'number':ascending;let i=index">
+                                                                <div class="lineup_data" (click)="Playerdetails(player.id)">
+                                                                    <div class="col-xs-2 lineup_img">
+                                                                        <p><span class="first-letters-circle">{{player.name[0]}}</span> </p>
+                                                                    </div>
+                                                                    <div class="col-xs-2 lineup_number">
+                                                                        <p>{{player.number}}</p>
+                                                                    </div>
+                                                                    <div class="col-xs-8 lineup_name">
+                                                                        <p>{{player.name}}</p>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-body  theme-hover" *ngIf="visitorteam_player_subs_length <= 0">
+                                                                <p>No VisitorTeam Bench </p>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!--******* end LINEUPS ***********-->
+
+
+                                        <!--******** Commentry ************-->
+                                        <div class="tab-pane" id="tab3default">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p class="slogen">{{match.localteam_name}} v {{match.visitorteam_name}} Commentaries, {{match.time| date: 'dd MMM yyyy'}}</p>
+                                                </div>
+                                            </div>
+                                            <div class=" Commentary-box">
+                                                <div class="card">
+                                                    <div class="col-md-12 header">
+                                                        <h4 class="text-left"><b>COMMENTARY</b></h4>
+                                                    </div>
+                                                    <p class="slogen cheadlines text-left"> {{match.localteam_name}} {{match.localteam_score}} , {{match.visitorteam_name}} {{match.visitorteam_score}}</p>
+
+                                                    <div class="card-body" *ngFor="let comment of Commentary_collection| slice:0:showMoreComments; let i=index">
+                                                        <div class="commentary-content">
+                                                            <div class="col-xs-3 col-sm-2">
+                                                                <p class="commentary-time">{{comment.minute}}'<span class="smalltime"></span> </p>
+                                                            </div>
+                                                            <div class="col-xs-9 col-sm-10 commentary-txt">
+                                                                <div *ngIf="comment.icon=='';else noborder">
+                                                                    <p>{{comment.comment}}</p>
+                                                                </div>
+                                                                <ng-template #noborder>
+                                                                    <p class="border-btm">{{comment.comment}}</p>
+                                                                    <div class="commentary_img_player col-sm-12 col-xs-12">
+                                                                        <div class="col-xs-2 col-sm-1  commentary_img" [class.align-flex]="comment.downName">
+                                                                            <img [class.align-fit]="comment.downName" src="{{comment.icon}}" alt="">
+                                                                        </div>
+                                                                        <div class="col-xs-10 col-sm-11 commentry-player">
+                                                                            <p>{{comment.upName}}</p>
+                                                                            <p *ngIf="comment.downName" class="small">{{comment.downName}}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </ng-template>
+                                                            </div>
+                                                        </div>
+                                                        <div class="viewmore-commments-btn" *ngIf="i == 9 && showMoreComments == 10">
+                                                            <div class="btn-pagelink-section">
+                                                                <button class="btn-pagelink" (click)="showMoreComments = comment.comment.length"><h4>View More  <span><i class="fa fa-chevron-right" aria-hidden="true"></i></span></h4></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf="Commentary_collection_length <= 0">
+                                                        <p class="text-left not_avilable_content">No Commentaries Found </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--******* end Commentry ***********-->
+                                    </div>
+                                </div>
+                                <!--end tabs body  -->
+                            </div>
+                        </div>
+                        <!--side bar  -->
+                        <div class="col-md-4 col-sm-12 col-lg-4 remove_left_padding sidebar_page">
+                            <div class="card sidebar-card">
+                                <div class="header">
+                                    <h4><b>{{currentdaydate|date:'MMM d, y'}}</b></h4>
+                                </div>
+                                <div *ngIf="array_length<10">
+                                    <div class=" card sidebar-card" *ngFor="let item of match_ground_details;let l=index">
+                                        <div class="sidebar_date">
+                                            <p>{{item.competitions.name}} <span (click)="CompetitionDetails(item.competitions.id)" class="more-link">More <i class="fa fa-chevron-right" aria-hidden="true"></i></span></p>
+                                        </div>
+                                        <div class="card-body sidebar-card-body theme-hover" *ngFor="let item_details of item.group|orderBy: 'time';let j=index">
+
+                                            <div class="list-cursor" *ngIf="match_ground_details.length>0" (click)="matchdetails_go(item_details.id)">
+                                                <div class="r-dashbord-team">
+                                                    <div class="col-md-4 col-sm-2 col-xs-4 match-team-group">
+                                                        <div class="numerType">
+                                                            <p class="match_time" [class.theme-color]="item_details.live_status">{{item_details.status}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-7 col-sm-9 col-xs-7 r-flag-team">
+                                                        <p [class.text-bold]="item_details.ltScore_highest">
+                                                            <span *ngIf="item_details.score_status_flage" class="score"> {{item_details.localteam_score}}
+                                                        </span> {{item_details.localteam_name}}
+                                                        </p>
+                                                        <p [class.text-bold]="item_details.vtScore_highest">
+                                                            <span *ngIf="item_details.score_status_flage" class="score">
+                                                                            {{item_details.visitorteam_score}} 
+                                                                      </span>{{item_details.visitorteam_name}}
+                                                        </p>
+                                                        <div *ngIf="item_details.agg_localvist || item_details.penalty_localvist" class="col-xs-12 agg_pen" id="agg_pen_responsve">
+                                                            <ul>
+                                                                <li *ngIf="item_details.agg_localvist">(AGG {{item_details.lats_score_local}}-{{item_details.lats_score_vist}})</li>
+                                                                <li *ngIf="item_details.penalty_localvist">(PEN {{item_details.penalty_local}}-{{item_details.penalty_visitor}})</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-1 col-sm-1 col-xs-1 circle">
+                                                        <div *ngIf="item_details.live_status" class="live_badge">
+                                                            <span class="status_offon">LIVE</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btn-pagelink-section" *ngIf="show_btn">
+                                    <button class="btn-pagelink" (click)="AllMatchList()"><h4>All Matches <span><i class="fa fa-chevron-right" aria-hidden="true"></i></span></h4></button>
+                                </div>
+
+                                <div class="list-cursor" *ngIf="array_length<=0">
+                                    <div class="card-body sidebar-card-body sidebar-nomatche">
+                                        <div class="col-md-12 col-sm-12 col-xs-12  match-team-group">
+                                            <div class="list-line">
+                                                <p>No Matches today</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end side bar  -->
+                    </div>
+                </div>
+            </div>
+            <!-- </div> -->
+            <!-- match-name end -->
+        </div>
+
+    </div>
+</div>
+<!--container -->

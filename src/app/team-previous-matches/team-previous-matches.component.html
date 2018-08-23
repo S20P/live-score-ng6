@@ -1,0 +1,118 @@
+<div class="row  previous-matces-page">
+    <div class="col-md-12">
+        <div *ngFor="let item of PreviousMatchesTeam; let i = index">
+            <div class="col-md-12 match-page-header" (click)="CompetitionDetails(item.competitions.id)">
+                <h4>{{item.competitions.name}}</h4>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div *ngFor="let paire of item.group|groupBy:'formatted_date'|orderBy:'formatted_date';let j=index" class="matches-list-sec">
+                        <h5 class="groupBy-date-title"> {{paire.key|date:'EEEE, d MMMM y'}}</h5>
+                        <div *ngFor="let item_details of paire.value|orderBy:'formatted_date';let j=index" class="card">
+                            <div class="row match-detail theme-hover" *ngIf="item_details.comp_id==item.competitions.id" (click)="matchdetails(item_details.id)">
+                                <!-- hide Responshive -->
+                                <div class="show-responsive-list">
+                                    <!-- Time & Status -->
+                                    <div class="col-sm-2 col-xs-2 match_time">
+                                        <p [class.theme-color]="item_details.live_status">{{item_details.status}}</p>
+                                    </div>
+                                    <!--end Time & Status -->
+
+                                    <!-- Score & Group of Team -->
+                                    <div class="col-sm-3 col-xs-4 flag-lwidth">
+                                        <p [class.text-bold]="item_details.ltScore_highest">{{item_details.localteam_name}}</p>
+                                    </div>
+                                    <div class="col-sm-2 col-xs-2 match-team-group">
+                                        <div *ngIf="item_details.score_status_flage; else noscore1">
+                                            <div class="matchscore">
+                                                <span class="match_time border-box-left" [class.text-bold]="item_details.ltScore_highest">{{item_details.localteam_score}}</span>
+                                                <span class="match_time border-box-right" [class.text-bold]="item_details.vtScore_highest">{{item_details.visitorteam_score}}</span>
+                                            </div>
+                                        </div>
+                                        <ng-template #noscore1>
+                                            <h1 class="upertxt">-</h1>
+                                        </ng-template>
+                                    </div>
+
+                                    <!--end Score & Group of Team -->
+
+                                    <div class="col-sm-3 col-xs-3 flag-rwidth">
+                                        <p [class.text-bold]="item_details.vtScore_highest">{{item_details.visitorteam_name}}</p>
+                                    </div>
+
+                                    <!--end Score & Group of Team -->
+                                    <div class="col-sm-1 col-xs-1 circle-team">
+                                        <div *ngIf="item_details.live_status ;else offico">
+                                            <div class="live_badge">
+                                                <span class="status_offon">LIVE</span>
+                                            </div>
+                                        </div>
+                                        <ng-template #offico>
+                                            <span *ngIf="item_details.team_w" class="team_w">W</span>
+                                            <span *ngIf="item_details.team_l" class="team_l">L</span>
+                                            <span *ngIf="item_details.team_d" class="team_d">D</span>
+                                        </ng-template>
+                                    </div>
+                                    <div *ngIf="item_details.agg_localvist || item_details.penalty_localvist" class="col-xs-12 agg_pen">
+                                        <ul>
+                                            <li *ngIf="item_details.agg_localvist">(AGG {{item_details.lats_score_local}}-{{item_details.lats_score_vist}})</li>
+                                            <li *ngIf="item_details.penalty_localvist">(PEN {{item_details.penalty_local}}-{{item_details.penalty_visitor}})</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- hide Responshive end-->
+
+                                <!-- Show Responshive -->
+                                <div class="hide-responsive-list r-dashbord-team">
+                                    <div class="col-md-4 col-sm-2 col-xs-4 match-team-group">
+                                        <div class="numerType">
+                                            <p class="match_time" [class.theme-color]="item_details.live_status">{{item_details.status}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7 col-sm-9 col-xs-6 r-flag-team">
+
+                                        <p [class.text-bold]="item_details.ltScore_highest">
+                                            <span *ngIf="item_details.score_status_flage" class="score"> {{item_details.localteam_score}}
+                                        </span> {{item_details.localteam_name}}
+                                        </p>
+                                        <p [class.text-bold]="item_details.vtScore_highest">
+                                            <span *ngIf="item_details.score_status_flage" class="score">
+                                                            {{item_details.visitorteam_score}} 
+                                                      </span>{{item_details.visitorteam_name}}
+                                        </p>
+
+                                        <div *ngIf="item_details.agg_localvist || item_details.penalty_localvist" class="col-xs-12 agg_pen" id="agg_pen_responsve">
+                                            <ul>
+                                                <li *ngIf="item_details.agg_localvist">(AGG {{item_details.lats_score_local}}-{{item_details.lats_score_vist}})</li>
+                                                <li *ngIf="item_details.penalty_localvist">(PEN {{item_details.penalty_local}}-{{item_details.penalty_visitor}})</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1 col-sm-1 col-xs-1 circle-team">
+                                        <div *ngIf="item_details.live_status;else offico" class="live_badge">
+                                            <span class="status_offon">LIVE</span>
+                                        </div>
+                                        <ng-template #offico>
+                                            <span *ngIf="item_details.team_w" class="team_w">W</span>
+                                            <span *ngIf="item_details.team_l" class="team_l">L</span>
+                                            <span *ngIf="item_details.team_d" class="team_d">D</span>
+                                        </ng-template>
+
+                                    </div>
+                                </div>
+                                <!-- Show Responshive end-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="array_length <= 0" class="card">
+            <div class="list-line row match-list">
+                <p class="col-md-12 text-left">Not matches Found</p>
+            </div>
+        </div>
+
+    </div>
+</div>

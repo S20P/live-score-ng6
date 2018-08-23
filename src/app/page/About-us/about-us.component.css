@@ -1,0 +1,21 @@
+.match-page-header {
+    margin-bottom: 10px;
+}
+
+.match-list-card-body {
+    background: #ffffff;
+}
+
+.match-list-card-body p {
+    margin: 0px;
+}
+
+.lr-padd {
+    padding: 0px 10px;
+    margin-bottom: 10px;
+    margin-top: -5px;
+}
+
+.no-r-padd {
+    padding-right: 0px;
+}
