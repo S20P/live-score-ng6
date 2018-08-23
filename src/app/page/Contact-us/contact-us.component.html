@@ -1,3 +1,78 @@
-<p>
-  contact-us works!
-</p>
+<div id="loading" *ngIf='showloader'>
+    <div class="lds-ring">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div class="container">
+    <div class="match-page-section">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="match-page-header">
+                    <p>Contact Us</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-8 col-lg-8 remove_right_padding">
+                <div class="card">
+                    <div class="card-body">
+                        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquet dolor libero, eget venenatis mauris finibus dictum. Vestibulum quis elit eget neque porttitor congue non sit amet dolor. Proin pretium purus a lorem ornare
+                            sed lobortis pulvinar. Integer laoreet mi id eros porta euismod. Suspendisse potenti. Nulla eros mauris, convallis et sem tempus, viverra hendrerit sapien
+                        </p>
+                        <p>sed lobortis pulvinar. Integer laoreet mi id eros porta euismod. Suspendisse potenti. Nulla eros mauris, convallis et sem tempus, viverra hendrerit sapien</p>
+
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+
+                                <div class="contct_form">
+                                    <h3 class="title">Get in touch</h3>
+                                    <form class="contact-form row">
+                                        <div class="form-field col x-50">
+                                            <input id="name" class="input-text js-input" type="text" required>
+                                            <label class="label" for="name">Name</label>
+                                        </div>
+                                        <div class="form-field col x-50">
+                                            <input id="email" class="input-text js-input" type="email" required>
+                                            <label class="label" for="email">E-mail</label>
+                                        </div>
+                                        <div class="form-field col x-100">
+                                            <input id="message" class="input-text js-input" type="text" required>
+                                            <label class="label" for="message">Message</label>
+                                        </div>
+                                        <div class="form-field col x-100 align-center">
+                                            <button class="submit-btn btn-pagelink"><h4>Submit</h4></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h3 class="title">Contact Information</h3>
+                                <ul class="contact-details">
+                                    <li>
+                                        <a><i class="fa fa-phone" aria-hidden="true"></i>+91 90000 00000</a>
+                                    </li>
+                                    <li>
+                                        <a><i class="fa fa-envelope-o" aria-hidden="true"></i>somemail@email.com</a>
+                                    </li>
+                                    <li>
+                                        <a><i class="fa fa-map-marker" aria-hidden="true"></i>City Address</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- sidebar -->
+            <div class="col-sm-12 col-md-4 col-lg-4 remove_left_padding">
+                <app-sidebar></app-sidebar>
+            </div>
+            <!-- sidebar end -->
+        </div>
+    </div>
+</div>

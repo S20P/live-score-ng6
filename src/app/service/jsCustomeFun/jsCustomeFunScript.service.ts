@@ -231,20 +231,23 @@ export class JsCustomeFunScriptService {
     var lats_score_vist: any;
     var agg_localvist: boolean = false;
     if (aggregate_id !== null) {
-      if (item['aggregate']) {
-        var aggregate_data = item['aggregate'].data;
-        var agg_result = aggregate_data.result;
+      if (item['agg_score']) {
+        var agg_result = item['agg_score'];
         if (agg_result !== "" || agg_result == null) {
           agg_localvist = true;
-          let string1 = agg_result.split("-", 2);
-          var agg_locaTeamId = aggregate_data['localteam_id'];
-          if (agg_locaTeamId == localteam_id) {
-            lats_score_local = parseInt(string1[0]);
-            lats_score_vist = parseInt(string1[1]);
-          } else {
-            lats_score_local = parseInt(string1[1]);
-            lats_score_vist = parseInt(string1[0]);
+          var vscore = visitorteam_score;
+          var lscore = localteam_score;
+
+          if (localteam_score == "" || localteam_score == null || localteam_score == undefined) {
+            lscore = 0;
           }
+          if (visitorteam_score == "" || visitorteam_score == null || visitorteam_score == undefined) {
+            vscore = 0;
+          }
+
+          let string1 = agg_result.split("-", 2);
+          lats_score_local = parseInt(string1[0]) + parseInt(lscore);
+          lats_score_vist = parseInt(string1[1]) + parseInt(vscore);
         } else {
           agg_localvist = false;
         }

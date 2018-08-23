@@ -738,3 +738,7 @@ img.lineup_title_img {
 .leauge_link_title .btn-pagelink {
     width: 100%!important;
 }
+
+ul.nav.nav-tabs {
+    padding-left: 0px !important;
+}
