@@ -657,7 +657,7 @@ i.fa.fa-circle {
 
 .score {
     font-weight: bold;
-    padding: 0px 10px;
+    padding: 0px 10px 0px 0px;
 }
 
 .header_logo IMG {
@@ -1435,6 +1435,7 @@ span.upertxt.dashed {
 @media (min-width: 768px) {
     .matchscore {
         margin-top: 15px;
+        margin-left: -4px;
     }
     .match_time p {
         font-weight: bold;
@@ -1446,7 +1447,7 @@ span.upertxt.dashed {
     }
     .border-box-left {
         border-right: 0px !important;
-        margin-right: -5px;
+        margin-right: 0px;
         position: static;
         border-radius: 4px 0px 0px 4px;
     }

@@ -142,7 +142,7 @@ export class JsCustomeFunScriptService {
       }
       if (status == "LIVE" || status == "PEN_LIVE" || status == "ET") {
         live_status = true;
-        status = live_minuts;
+        status = live_minuts+"'";
       }
       else if (status == "HT" || status == "BREAK") {
         live_status = true;

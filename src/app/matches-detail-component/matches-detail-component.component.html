@@ -692,7 +692,7 @@
                                                                 </h4>
                                                             </div>
 
-                                                            <div class="card-body  theme-hover" *ngFor="let player of visitorteam_player_subs|orderBy_ace_desc:'number':ascending;let i=index">
+                                                            <div class="card-body  theme-hover" *ngFor="let player of visitorteam_player_subs|orderBy_ace_desc:'number_sort':ascending;let i=index">
                                                                 <div class="lineup_data" (click)="Playerdetails(player.id)">
                                                                     <div class="col-xs-2 lineup_img">
                                                                         <p><span class="first-letters-circle">{{player.name[0]}}</span> </p>

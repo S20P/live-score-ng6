@@ -152,8 +152,6 @@ export class CompetitionMatchesComponent implements OnInit {
             console.log("round list");
 
             var round_data = round['data'];
-
-
             var date_time = round_data.end; //YYYY-MM-DD H:MM:SS
             var match_time = this.jsCustomeFun.ChangeTimeZone(date_time);
             dt = moment(new Date(match_time)).format('YYYY-MM-DD');
@@ -179,14 +177,14 @@ export class CompetitionMatchesComponent implements OnInit {
           }
           else {
             if (stage) {
+              console.log("stage is full");
 
-              if (time) {
-                var st = time.starting_at;
-                //    dt = st.date;
-                var date_time = st.date; //YYYY-MM-DD H:MM:SS
-                var match_time = this.jsCustomeFun.ChangeTimeZone(date_time);
-                dt = moment(new Date(match_time)).format('YYYY-MM-DD');
-              }
+              var st = time.starting_at;
+              //    dt = st.date;
+              var date_time = st.date; //YYYY-MM-DD H:MM:SS
+              var match_time = this.jsCustomeFun.ChangeTimeZone(date_time);
+              dt = moment(new Date(match_time)).format('YYYY-MM-DD');
+
               var stage_data = stage['data'];
               if (stage_data !== undefined || stage_data['length'] !== 0 || stage_data !== null) {
                 week = stage_data.name;

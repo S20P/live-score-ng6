@@ -376,6 +376,7 @@ export class MatchesDetailComponentComponent implements OnInit {
                                             "id": lineup[lp].player_id,
                                             "name": lineup[lp].player_name,
                                             "number": lineup[lp].number,
+                                            "number_sort": number_sort,
                                             "pos": lineup[lp].position,
                                         });
                                     }
@@ -387,6 +388,7 @@ export class MatchesDetailComponentComponent implements OnInit {
                                             "id": lineup[lp].player_id,
                                             "name": lineup[lp].player_name,
                                             "number": lineup[lp].number,
+                                            "number_sort": number_sort,
                                             "pos": lineup[lp].position,
                                         });
                                     }
