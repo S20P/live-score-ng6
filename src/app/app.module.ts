@@ -30,6 +30,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     GroupByArrayPipe,
     SidebarComponent,
     CompetitionAsideRightComponent,
+    
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

@@ -21,6 +21,7 @@ import { AboutUsComponent } from './page/About-us/about-us.component';
 import { ContactUsComponent } from './page/Contact-us/contact-us.component';
 import { PrivacyPolicyComponent } from './page/Privacy-Policy/privacy-policy.component';
 import { OurAppsComponent } from './page/Our-Apps/our-apps.component';
+import { TermsConditionsComponent } from './page/Terms-Conditions/terms-conditions.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'matches', pathMatch: 'full' },
@@ -40,6 +41,8 @@ const routes: Routes = [
   { path: 'contact', component: ContactUsComponent },  //Contact-us
   { path: 'privacy-policy', component: PrivacyPolicyComponent },  //Privacy-Policy
   { path: 'our-apps', component: OurAppsComponent },  //Our-Apps
+  { path: 'terms-conditions', component: TermsConditionsComponent },  //Our-Apps
+
 
 ];
 
@@ -65,5 +68,6 @@ export const AppRoutingComponents = [
   AboutUsComponent,
   ContactUsComponent,
   PrivacyPolicyComponent,
-  OurAppsComponent
+  OurAppsComponent,
+  TermsConditionsComponent
 ];

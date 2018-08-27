@@ -5,3 +5,13 @@
  .no-r-padd {
      padding-right: 0px;
  }
+ 
+ .page_body h1 {
+     margin: 0px;
+     margin-bottom: 12px;
+     font-size: 22px;
+ }
+ 
+ .page_body h4 {
+     color: var(--theme-bg-color);
+ }

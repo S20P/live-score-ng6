@@ -5,3 +5,44 @@
 .no-r-padd {
     padding-right: 0px;
 }
+
+.page_body h1 {
+    margin: 0px;
+    margin-bottom: 12px;
+    font-size: 22px;
+}
+
+.page_body h5 {
+    color: var(--theme-bg-color);
+    font-size: 16px;
+}
+
+.page_body span {
+    color: var(--theme-bg-color);
+}
+
+.page_body ol li {
+    font-size: 18px;
+    list-style-type: none;
+}
+
+.page_body ul li {
+    font-size: 18px;
+}
+
+.page_body ol li h4 {
+    color: var(--theme-bg-color);
+    font-weight: 600;
+}
+
+ul.sublist {
+    margin-left: 30px;
+}
+
+ul.sublist li {
+    list-style-type: disc!important;
+}
+
+ul.sub_points {
+    margin-left: 30px;
+}
