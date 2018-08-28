@@ -1357,7 +1357,6 @@ export class MatchesDetailComponentComponent implements OnInit {
                 }
             })
         };
-
         this.fb.ui(params)
             .then((res: UIResponse) => console.log(res))
             .catch((e: any) => console.error(e));
