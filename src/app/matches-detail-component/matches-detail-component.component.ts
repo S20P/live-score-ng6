@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/timer';
 import { DatePipe } from '@angular/common';
+
 import { JsCustomeFunScriptService } from '../service/jsCustomeFun/jsCustomeFunScript.service';
 import * as moment from 'moment-timezone';
 import "moment-timezone";
@@ -15,7 +16,8 @@ import { Meta } from '@angular/platform-browser';
     {
         selector: 'app-matches-detail-component',
         templateUrl: './matches-detail-component.component.html',
-        styleUrls: ['./matches-detail-component.component.css']
+        styleUrls: ['./matches-detail-component.component.css'],
+
     }
 )
 export class MatchesDetailComponentComponent implements OnInit {
@@ -65,7 +67,8 @@ export class MatchesDetailComponentComponent implements OnInit {
         public datepipe: DatePipe,
         private liveMatchesApiService: MatchesApiService,
         private jsCustomeFun: JsCustomeFunScriptService,
-        private meta: Meta
+        private meta: Meta,
+
     ) {
         var dateofday = Date();
         this.currentdaydate = this.jsCustomeFun.ChangeDateFormat(dateofday);
@@ -91,8 +94,22 @@ export class MatchesDetailComponentComponent implements OnInit {
         this.currentdaydate = this.currentdaydate;
 
         //HTTP GET for product in catalogue
-
-
+        // let href = 'https://footzyscore.com' + this.router.url;
+        // this.meta.addTags([
+        //     { name: 'description', content: 'Title and Meta tags examples' },
+        //     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        //     { name: 'robots', content: 'INDEX, FOLLOW' },
+        //     { name: 'author', content: 'ABCD' },
+        //     { name: 'keywords', content: 'TypeScript, Angular' },
+        //     { name: 'date', content: '2018-06-02', scheme: 'YYYY-MM-DD' },
+        //     { httpEquiv: 'Content-Type', content: 'text/html' },
+        //     { property: 'og:title', content: "My Text" },
+        //     { property: 'og:type', content: "website" },
+        //     { property: 'og:url', content: href },
+        //     { property: 'og:image', content: "https://footzyscore.com/assets/img/score_bg2.jpg" },
+        //     { charset: 'UTF-8' }
+        // ]);
+        //     console.log("href", href);
     }
 
     ngOnInit() {

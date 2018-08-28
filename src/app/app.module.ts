@@ -22,6 +22,7 @@ import { CompetitionAsideRightComponent } from './competition-aside-right/compet
 import { SidebarComponent } from './sidebar/sidebar.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +31,6 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     GroupByArrayPipe,
     SidebarComponent,
     CompetitionAsideRightComponent,
-    
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -41,6 +41,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     OrderModule,
     NgxPageScrollModule,
     NgxPaginationModule,
+    
   ],
   providers: [MatchService, DatePipe, JsCustomeFunScriptService, MatchesApiService],
   bootstrap: [AppComponent]
