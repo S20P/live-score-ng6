@@ -32,6 +32,7 @@
         "@types/socket.io-client": "^1.4.32",
         "angular-moment-timezone": "^1.7.1",
         "core-js": "^2.5.4",
+        "ngx-facebook": "^2.4.0",
         "ngx-order-pipe": "^2.0.1",
         "ngx-page-scroll": "^5.0.0",
         "ngx-pagination": "^3.2.0",

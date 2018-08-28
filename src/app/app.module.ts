@@ -20,7 +20,7 @@ import { MatchService } from './service/match.service';
 import { JsCustomeFunScriptService } from './service/jsCustomeFun/jsCustomeFunScript.service';
 import { CompetitionAsideRightComponent } from './competition-aside-right/competition-aside-right.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-
+import { FacebookModule } from 'ngx-facebook';
 
 
 @NgModule({
@@ -41,7 +41,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     OrderModule,
     NgxPageScrollModule,
     NgxPaginationModule,
-    
+    FacebookModule.forRoot()
   ],
   providers: [MatchService, DatePipe, JsCustomeFunScriptService, MatchesApiService],
   bootstrap: [AppComponent]

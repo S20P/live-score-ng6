@@ -11,6 +11,7 @@ import { JsCustomeFunScriptService } from '../service/jsCustomeFun/jsCustomeFunS
 import * as moment from 'moment-timezone';
 import "moment-timezone";
 import { Meta } from '@angular/platform-browser';
+import { FacebookService, InitParams, UIParams, UIResponse } from 'ngx-facebook';
 
 @Component(
     {
@@ -58,7 +59,8 @@ export class MatchesDetailComponentComponent implements OnInit {
     public array_length: any;
     public show_btn: boolean;
     showMoreComments = 10;
-
+    public metatitle: any;
+    public metadesc: any;
 
     constructor(
         private route: ActivatedRoute,
@@ -68,6 +70,7 @@ export class MatchesDetailComponentComponent implements OnInit {
         private liveMatchesApiService: MatchesApiService,
         private jsCustomeFun: JsCustomeFunScriptService,
         private meta: Meta,
+        private fb: FacebookService
 
     ) {
         var dateofday = Date();
@@ -93,6 +96,11 @@ export class MatchesDetailComponentComponent implements OnInit {
         this.show_btn = false;
         this.currentdaydate = this.currentdaydate;
 
+        this.metatitle = "";
+        this.metadesc = "";
+
+
+
         //HTTP GET for product in catalogue
         // let href = 'https://footzyscore.com' + this.router.url;
         // this.meta.addTags([
@@ -110,9 +118,26 @@ export class MatchesDetailComponentComponent implements OnInit {
         //     { charset: 'UTF-8' }
         // ]);
         //     console.log("href", href);
+
+
+        console.log("this.window", window.location.href);
+        let initParams: InitParams = {
+            appId: '602459130149299',
+            xfbml: true,
+            version: 'v2.8'
+        };
+
+        fb.init(initParams);
+
+
+
     }
 
     ngOnInit() {
+
+
+
+
 
         this.match_detailcollection = [];
         this.events_collection = [];
@@ -714,6 +739,11 @@ export class MatchesDetailComponentComponent implements OnInit {
                 var meta_date = moment(match_time, 'YYYY-MM-DD HH:mm:ss a').format('DD MMM YYYY');
                 self.meta.addTag({ name: 'title', content: 'Match ' + localteam_name + " vs " + visitorteam_name + " (" + localteam_score + ":" + visitorteam_score + ") - " + competitions.name + " on the " + meta_date + " | FootzyScore" });
                 self.meta.addTag({ name: 'description', content: "All info to the " + competitions.name + " " + localteam_name + " vs " + visitorteam_name + "  on the " + meta_date + " - latest news, live scores and statistics. >>> MORE" });
+                this.metatitle = 'Match ' + localteam_name + " vs " + visitorteam_name + " (" + localteam_score + ":" + visitorteam_score + ") - " + competitions.name + " on the " + meta_date + " | FootzyScore";
+                this.metadesc = "All info to the " + competitions.name + " " + localteam_name + " vs " + visitorteam_name + "  on the " + meta_date + " - latest news, live scores and statistics. >>> MORE";
+
+
+
 
                 self.match_detailcollection.push({
                     "id": collection['id'],
@@ -1307,4 +1337,29 @@ export class MatchesDetailComponentComponent implements OnInit {
         this.router.navigate(['/competition', comp_id]);
     }
 
+    ShareOnFb() {
+        console.log("you can share it now...");
+        var image = 'https://media.socastsrm.com/wordpress/wp-content/blogs.dir/1411/files/2018/08/generic-football-2.jpg';
+        var title = this.metatitle
+        var description = this.metadesc;
+        console.log("title", title);
+        console.log("description", description);
+
+        let params: UIParams = {
+            method: 'share',
+            action_type: 'og.likes',
+            action_properties: JSON.stringify({
+                object: {
+                    'og:url': window.location.href,
+                    'og:title': title,
+                    'og:description': description,
+                    'og:image': image
+                }
+            })
+        };
+
+        this.fb.ui(params)
+            .then((res: UIResponse) => console.log(res))
+            .catch((e: any) => console.error(e));
+    }
 }
