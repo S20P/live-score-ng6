@@ -5,6 +5,9 @@ declare var $: any;
 declare var jQuery: any;
 import * as moment from 'moment-timezone';
 import "moment-timezone";
+import { Meta } from '@angular/platform-browser';
+import { JsCustomeFunScriptService } from '../service/jsCustomeFun/jsCustomeFunScript.service';
+
 @Injectable()
 export class MatchService {
 
@@ -42,7 +45,12 @@ export class MatchService {
   GetAllMatchesByStageId_API: string = this._baseurl_local + "MobileAPI/GetAllMatchesByStageId";
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+    private meta: Meta,
+    private jsCustomeFun: JsCustomeFunScriptService,
+
+  ) {
+
   }
 
   GetAllCompetitions() {
@@ -149,6 +157,24 @@ export class MatchService {
 
   GetMatchDeatilByMatchId(match_id) {
     let apiurl = `${this.GetMatchDeatilByMatchId_API + '?match_id=' + match_id}`;
+    this.http.get(apiurl).subscribe(record => {
+      var res: any = record['data'];
+      for (let result of res) {
+        var collection: any = this.jsCustomeFun.HandleDataofAPI(result);
+        var match_time: any = collection["match_time"];
+        var competitions = collection['competitions'];
+        var meta_date = moment(match_time, 'YYYY-MM-DD HH:mm:ss a').format('DD MMM YYYY');
+        //console.log("meta_date_****", meta_date);
+        var metatitle = 'Match ' + collection['localteam_name'] + " vs " + collection['visitorteam_name'] + " (" + collection["localteam_score"] + ":" + collection["visitorteam_score"] + ") - " + competitions.name + " on the " + moment(match_time, 'YYYY-MM-DD HH:mm:ss a').format('DD MMM YYYY') + " | FootzyScore";
+        var metadesc = "All info to the " + competitions.name + " " + collection['localteam_name'] + " vs " + collection['visitorteam_name'] + "  on the " + moment(match_time, 'YYYY-MM-DD HH:mm:ss a').format('DD MMM YYYY') + " - latest news, live scores and statistics. >>> MORE";
+
+        this.meta.updateTag({ name: 'title', content: metatitle });
+        this.meta.updateTag({ name: 'description', content: metadesc });
+        this.meta.updateTag({ property: 'og:title', content: metatitle });
+        this.meta.updateTag({ property: 'og:description', content: metadesc });
+      }
+    });
+
     return this.http.get(apiurl);
   }
 

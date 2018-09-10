@@ -1455,8 +1455,14 @@ span.upertxt.dashed {
         border-radius: 0px 4px 4px 0px;
         border-left: 1px solid rgb(232, 229, 229)!important;
     }
-    .agg_pen {
-        margin-left: 40px!important;
+    /* .agg_pen {
+        margin-left: 40px;
+    } */
+    .agg_pen_responsve {
+        margin-left: 0px!important;
+    }
+    .agg_pen_responsve ul {
+        margin-left: 0px!important;
     }
 }
 
@@ -1465,6 +1471,7 @@ span.upertxt.dashed {
     display: block;
     margin: auto;
     margin-bottom: 1px;
+    margin-left: 40px;
 }
 
 .agg_pen ul {
@@ -1494,7 +1501,7 @@ span.upertxt.dashed {
 #agg_pen_responsve ul li {
     float: none!important;
     display: block;
-    left: -20px;
+    left: -60px;
 }
 
 .player_img img {

@@ -11,7 +11,7 @@ import { JsCustomeFunScriptService } from '../service/jsCustomeFun/jsCustomeFunS
 import * as moment from 'moment-timezone';
 import "moment-timezone";
 import { Meta } from '@angular/platform-browser';
-import { FacebookService, InitParams, UIParams, UIResponse } from 'ngx-facebook';
+
 
 @Component(
     {
@@ -69,9 +69,7 @@ export class MatchesDetailComponentComponent implements OnInit {
         public datepipe: DatePipe,
         private liveMatchesApiService: MatchesApiService,
         private jsCustomeFun: JsCustomeFunScriptService,
-        private meta: Meta,
-        private fb: FacebookService
-
+        private meta: Meta    
     ) {
         var dateofday = Date();
         this.currentdaydate = this.jsCustomeFun.ChangeDateFormat(dateofday);
@@ -95,49 +93,12 @@ export class MatchesDetailComponentComponent implements OnInit {
         this.localtimezone = this.jsCustomeFun.LocalTimeZone();
         this.show_btn = false;
         this.currentdaydate = this.currentdaydate;
-
         this.metatitle = "";
         this.metadesc = "";
-
-
-
-        //HTTP GET for product in catalogue
-        // let href = 'https://footzyscore.com' + this.router.url;
-        // this.meta.addTags([
-        //     { name: 'description', content: 'Title and Meta tags examples' },
-        //     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        //     { name: 'robots', content: 'INDEX, FOLLOW' },
-        //     { name: 'author', content: 'ABCD' },
-        //     { name: 'keywords', content: 'TypeScript, Angular' },
-        //     { name: 'date', content: '2018-06-02', scheme: 'YYYY-MM-DD' },
-        //     { httpEquiv: 'Content-Type', content: 'text/html' },
-        //     { property: 'og:title', content: "My Text" },
-        //     { property: 'og:type', content: "website" },
-        //     { property: 'og:url', content: href },
-        //     { property: 'og:image', content: "https://footzyscore.com/assets/img/score_bg2.jpg" },
-        //     { charset: 'UTF-8' }
-        // ]);
-        //     console.log("href", href);
-
-
-        console.log("this.window", window.location.href);
-        let initParams: InitParams = {
-            appId: '602459130149299',
-            xfbml: true,
-            version: 'v2.8'
-        };
-
-        fb.init(initParams);
-
-
-
+   
     }
 
     ngOnInit() {
-
-
-
-
 
         this.match_detailcollection = [];
         this.events_collection = [];
@@ -737,12 +698,12 @@ export class MatchesDetailComponentComponent implements OnInit {
                 //end self gloab variable----------------
                 //  var time = moment(match_time, 'YYYY-MM-DD HH:mm:ss a').format('DD MMM YYYY');
                 var meta_date = moment(match_time, 'YYYY-MM-DD HH:mm:ss a').format('DD MMM YYYY');
-                self.meta.addTag({ name: 'title', content: 'Match ' + localteam_name + " vs " + visitorteam_name + " (" + localteam_score + ":" + visitorteam_score + ") - " + competitions.name + " on the " + meta_date + " | FootzyScore" });
-                self.meta.addTag({ name: 'description', content: "All info to the " + competitions.name + " " + localteam_name + " vs " + visitorteam_name + "  on the " + meta_date + " - latest news, live scores and statistics. >>> MORE" });
-                this.metatitle = 'Match ' + localteam_name + " vs " + visitorteam_name + " (" + localteam_score + ":" + visitorteam_score + ") - " + competitions.name + " on the " + meta_date + " | FootzyScore";
-                this.metadesc = "All info to the " + competitions.name + " " + localteam_name + " vs " + visitorteam_name + "  on the " + meta_date + " - latest news, live scores and statistics. >>> MORE";
-
-
+                // self.meta.addTag({ name: 'title', content: 'Match ' + localteam_name + " vs " + visitorteam_name + " (" + localteam_score + ":" + visitorteam_score + ") - " + competitions.name + " on the " + meta_date + " | FootzyScore" });
+                // self.meta.addTag({ name: 'description', content: "All info to the " + competitions.name + " " + localteam_name + " vs " + visitorteam_name + "  on the " + meta_date + " - latest news, live scores and statistics. >>> MORE" });
+                // this.metatitle = 'Match ' + localteam_name + " vs " + visitorteam_name + " (" + localteam_score + ":" + visitorteam_score + ") - " + competitions.name + " on the " + meta_date + " | FootzyScore";
+                // this.metadesc = "All info to the " + competitions.name + " " + localteam_name + " vs " + visitorteam_name + "  on the " + meta_date + " - latest news, live scores and statistics. >>> MORE";
+       
+              
 
 
                 self.match_detailcollection.push({
@@ -1336,29 +1297,5 @@ export class MatchesDetailComponentComponent implements OnInit {
     CompetitionDetails(comp_id) {
         this.router.navigate(['/competition', comp_id]);
     }
-
-    ShareOnFb() {
-        console.log("you can share it now...");
-        var image = 'https://media.socastsrm.com/wordpress/wp-content/blogs.dir/1411/files/2018/08/generic-football-2.jpg';
-        var title = this.metatitle
-        var description = this.metadesc;
-        console.log("title", title);
-        console.log("description", description);
-
-        let params: UIParams = {
-            method: 'share',
-            action_type: 'og.likes',
-            action_properties: JSON.stringify({
-                object: {
-                    'og:url': window.location.href,
-                    'og:title': title,
-                    'og:description': description,
-                    'og:image': image
-                }
-            })
-        };
-        this.fb.ui(params)
-            .then((res: UIResponse) => console.log(res))
-            .catch((e: any) => console.error(e));
-    }
+   
 }
