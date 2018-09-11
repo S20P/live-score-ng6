@@ -170,8 +170,23 @@ export class MatchService {
 
         this.meta.updateTag({ name: 'title', content: metatitle });
         this.meta.updateTag({ name: 'description', content: metadesc });
+
+        //For Facebook
+
+        let config = {
+          title: "Match " + collection['localteam_name'] + " vs " + collection['visitorteam_name'] + " (" + collection["localteam_score"] + ":" + collection["visitorteam_score"] + ") - " + competitions.name + " on the " + moment(match_time, 'YYYY-MM-DD HH:mm:ss a').format('DD MMM YYYY') + " | FootzyScore",
+          description: "All info to the " + competitions.name + " " + collection['localteam_name'] + " vs " + collection['visitorteam_name'] + "  on the " + moment(match_time, 'YYYY-MM-DD HH:mm:ss a').format('DD MMM YYYY') + " - latest news, live scores and statistics. >>> MORE",
+          image: "https://footzyscore.com/assets/img/appicon.png",
+          slug: match_id
+        }
+
+        this.meta.updateTag({ property: 'og:type', content: 'article' });
+        this.meta.updateTag({ property: 'og:site_name', content: 'footzyscore' });
         this.meta.updateTag({ property: 'og:title', content: metatitle });
         this.meta.updateTag({ property: 'og:description', content: metadesc });
+        this.meta.updateTag({ property: 'og:image', content: 'https://footzyscore.com/assets/img/appicon.png' });
+        this.meta.updateTag({ property: 'og:url', content: `https://footzyscore.com/matches/${config.slug}` });
+
       }
     });
 
